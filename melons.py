@@ -9,7 +9,12 @@ class AbstractMelonOrder(object):
         self.species = species
         self.qty = qty
         self.shipped = False
+        self.christmas = False
 
+    def is_christmas(self):
+        """Sets christmas to true."""
+
+        self.christmas = True        
 
     def mark_shipped(self):
         """Set shipped to true."""
@@ -20,8 +25,15 @@ class AbstractMelonOrder(object):
         """Calculate price."""
 
         base_price = 5
-        total = (1 + self.tax) * self.qty * base_price
-        return total
+        christmas_base_price = (base_price * 1.5)
+
+        if christmas == True:
+            total = (1 + self.tax) * self.qty * christmas_base_price
+            return total
+
+        else:
+            total = (1 + self.tax) * self.qty * base_price
+            return total
 
 
 class DomesticMelonOrder(AbstractMelonOrder):
