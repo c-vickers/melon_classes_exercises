@@ -11,7 +11,7 @@ class AbstractMelonOrder(object):
         self.shipped = False
         self.christmas = False
 
-    def is_christmas(self):
+    def mark_as_christmas(self):
         """Sets christmas to true."""
 
         self.christmas = True        
@@ -27,7 +27,7 @@ class AbstractMelonOrder(object):
         base_price = 5
         christmas_base_price = (base_price * 1.5)
 
-        if christmas == True:
+        if self.christmas == True:
             total = (1 + self.tax) * self.qty * christmas_base_price
             return total
 
@@ -58,5 +58,39 @@ class InternationalMelonOrder(AbstractMelonOrder):
     def get_country_code(self):
         """Return the country code."""
 
-        return self.country_code
+        return self.country_code    
+
+    def get_total(self):
+        """Calculate price."""
+
+        total = super(InternationalMelonOrder, self).get_total()
+
+        if self.qty >= 10:
+            return total
+
+        else:
+            return total + 3  
+
+class GovtMelonOrder(AbstractMelonOrder):
+    """A domestic government melon order."""
+
+    order_type = "government"
+    tax = 0
+    passed_inspection = False
+
+    def inspect_melons(self,passed): #<--should this be self?
+        if passed == True: #<-- is all this what you meant by take boolean?
+            self.passed_inspection = True
+
+
+
+# order = InternationalMelonOrder('watermelon', 9, 'AUS')  
+# order1 = InternationalMelonOrder('watermelon', 10, 'AUS')  
+order3 = GovtMelonOrder('melon', 1)
+print order3.passed_inspection
+# print order.get_total()
+# print order1.get_total()    
+
+
+        
 
