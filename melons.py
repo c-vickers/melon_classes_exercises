@@ -28,7 +28,8 @@ class AbstractMelonOrder(object):
     def get_total(self):
         """Calculate price."""
 
-        base_price = get_base_price()
+        base_price = self.get_base_price()
+        print base_price
         christmas_base_price = (base_price * 1.5)
 
         if self.christmas == True:
@@ -38,6 +39,7 @@ class AbstractMelonOrder(object):
         else:
             total = (1 + self.tax) * self.qty * base_price
             return total
+        print total
 
 
 class DomesticMelonOrder(AbstractMelonOrder):
@@ -87,11 +89,11 @@ class GovtMelonOrder(AbstractMelonOrder):
             self.passed_inspection = True
 
 
-
+# Tests
 # order = InternationalMelonOrder('watermelon', 9, 'AUS')  
 # order1 = InternationalMelonOrder('watermelon', 10, 'AUS')  
-order3 = GovtMelonOrder('melon', 1)
-print order3.passed_inspection
+# order3 = InternationalMelonOrder('melon', 12, 'AUS')
+# print order3.passed_inspection
 # print order.get_total()
 # print order1.get_total()    
 
